@@ -14,8 +14,50 @@ async function crearUsuario(req, res) {
       mensaje: 'Error al crear el usuario',
     });
   }
-}
+};
+
+async function login (req, res){
+  const { correo, contrasena} = req.body;
+
+  try {
+    const usuario = await userSql.autenticarUsuario(correo, contrasena);
+    if(usuario){
+      req.session.usuario ={
+        id: usuario.id,
+        nombre: usuario.nombre,
+        apellido: usuario.apellido,
+        institucion: usuario.institucion,
+        cargo: usuario.cargo,
+        biografia: usuario.biografia,
+        correo: usuario.correo,
+        telefono: usuario.telefono
+      };
+      console.log('Sesion: ', req.session);
+      return res.status(200).json({mensaje: 'Se inicio sesion exitosamente'});
+    }
+
+    res.status(401).json({mensaje: 'Credenciales incorrectas'});
+  } catch (error){
+    console.error('Error al autenticar usuario:', error);
+    res.status(500).json({mensaje: 'Error del servidor', error})
+  }
+};
+
+async function logout(req, res){
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({mensaje: 'Error al cerrar sesión', error: err});
+    }
+    res.clearCookie('connect.sid');
+    res.status(200).json({mensaje: 'Sesión cerrada exitosamente'});
+    console.log('Sesión cerrada exitosamente');
+  });
+};
+
+
 
 module.exports = {
-  crearUsuario
+  crearUsuario,
+  login,
+  logout
 };
