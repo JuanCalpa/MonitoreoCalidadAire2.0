@@ -4,31 +4,31 @@ import '../StyleComponents/LoginForm.css';
 
 const RegisterForm = () => {
   const [nombre, setNombre] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [tipo, setTipo] = useState('admin'); // Valor predeterminado
+  const [apellido, setApellido] = useState('');
   const [institucion, setInstitucion] = useState('');
   const [cargo, setCargo] = useState('');
   const [biografia, setBiografia] = useState('');
+  const [correo, setCorreo] = useState('');
+  const [contrasena, setContrasena] = useState('');
+  const [telefono, setTelefono] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Crear el objeto de datos
     const userData = {
       nombre,
-      correo: email,
-      contraseña: password,
-      tipo,
-      institucion: tipo === 'investigador' ? institucion : undefined,
-      cargo: tipo === 'investigador' ? cargo : undefined,
-      biografia: tipo === 'investigador' ? biografia : undefined,
+      apellido,
+      institucion,
+      cargo,
+      biografia,
+      correo,
+      contrasena,
+      telefono
     };
 
     try {
-      // Llamar a la API para registrar el usuario
-      const response = await fetch('http://localhost:3000/api/sql/user', {
+      const response = await fetch('http://localhost:3000/api/usuarios/crear', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -38,7 +38,7 @@ const RegisterForm = () => {
 
       if (response.ok) {
         alert('Usuario registrado con éxito');
-        navigate('/login'); // Redirigir al login
+        navigate('/login');
       } else {
         const errorData = await response.json();
         alert(`Error: ${errorData.error || 'No se pudo registrar el usuario'}`);
@@ -59,57 +59,60 @@ const RegisterForm = () => {
         <h2>Registrarse</h2>
         <input
           type="text"
-          placeholder="Nombre completo"
+          placeholder="Nombre"
           value={nombre}
           onChange={(e) => setNombre(e.target.value)}
           required
         />
         <input
+          type="text"
+          placeholder="Apellido"
+          value={apellido}
+          onChange={(e) => setApellido(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Institución"
+          value={institucion}
+          onChange={(e) => setInstitucion(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Cargo"
+          value={cargo}
+          onChange={(e) => setCargo(e.target.value)}
+          required
+        />
+        <input
+          type="text"
+          placeholder="Biografía"
+          value={biografia}
+          onChange={(e) => setBiografia(e.target.value)}
+          required
+        />
+        <input
           type="email"
           placeholder="Correo electrónico"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={correo}
+          onChange={(e) => setCorreo(e.target.value)}
           required
         />
         <input
           type="password"
           placeholder="Contraseña"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
+          value={contrasena}
+          onChange={(e) => setContrasena(e.target.value)}
           required
         />
-        <select
-          value={tipo}
-          onChange={(e) => setTipo(e.target.value)}
+        <input
+          type="text"
+          placeholder="Teléfono"
+          value={telefono}
+          onChange={(e) => setTelefono(e.target.value)}
           required
-        >
-          <option value="admin">Administrador</option>
-          <option value="investigador">Investigador</option>
-        </select>
-        {tipo === 'investigador' && (
-          <>
-            <input
-              type="text"
-              placeholder="Institución"
-              value={institucion}
-              onChange={(e) => setInstitucion(e.target.value)}
-              required
-            />
-            <input
-              type="text"
-              placeholder="Cargo"
-              value={cargo}
-              onChange={(e) => setCargo(e.target.value)}
-              required
-            />
-            <textarea
-              placeholder="Biografía"
-              value={biografia}
-              onChange={(e) => setBiografia(e.target.value)}
-              required
-            />
-          </>
-        )}
+        />
         <button type="submit">Crear cuenta</button>
         <div className="register-link">
           ¿Ya tienes cuenta?{' '}

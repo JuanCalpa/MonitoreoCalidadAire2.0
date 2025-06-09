@@ -8,37 +8,34 @@ const LoginForm = () => {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  try {
-    const response = await fetch('http://localhost:3000/api/sql/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ correo: email, contraseña: password }),
-    });
+    try {
+      const response = await fetch('http://localhost:3000/api/usuarios/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ correo: email, contrasena: password }),
+      });
 
-    const data = await response.json();
-    console.log('Respuesta de la API:', data); // <-- Agrega este log
+      const data = await response.json();
+      console.log('Respuesta de la API:', data);
 
-    if (response.ok && data.success) {
-      alert('Inicio de sesión exitoso');
-      console.log('Usuario:', data.user); // <-- Agrega este log
-      if (data.user.tipo === 'admin') {
-        navigate('/admin');
-      } else if (data.user.tipo === 'investigador') {
-        navigate('/invitado');
+      if (response.ok && data.success) {
+        alert('Inicio de sesión exitoso');
+        console.log('Usuario:', data.user);
+        navigate('/invitado'); // Redirección aquí
+      } else {
+        alert(`Error: ${data.error || 'Credenciales inválidas'}`);
       }
-    } else {
-      alert(`Error: ${data.error || 'Credenciales inválidas'}`);
+    } catch (error) {
+      console.error('Error al iniciar sesión:', error);
+      alert('Error al conectar con el servidor');
     }
-  } catch (error) {
-    console.error('Error al iniciar sesión:', error);
-    alert('Error al conectar con el servidor');
-  }
-};
+  };
+
   const handleRegister = () => {
     navigate('/register');
   };

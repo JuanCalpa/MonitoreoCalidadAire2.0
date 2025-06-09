@@ -33,13 +33,24 @@ async function login (req, res){
         telefono: usuario.telefono
       };
       console.log('Sesion: ', req.session);
-      return res.status(200).json({mensaje: 'Se inicio sesion exitosamente'});
+      return res.status(200).json({
+        success: true, 
+        mensaje: 'Se inicio sesion exitosamente', 
+        user: req.session.usuario
+      });
     }
 
-    res.status(401).json({mensaje: 'Credenciales incorrectas'});
+    res.status(401).json({
+      success: false, 
+      mensaje: 'Credenciales incorrectas'
+    });
+
   } catch (error){
     console.error('Error al autenticar usuario:', error);
-    res.status(500).json({mensaje: 'Error del servidor', error})
+    res.status(500).json({
+      success: false,
+      error: 'Error del servidor'
+      })
   }
 };
 
