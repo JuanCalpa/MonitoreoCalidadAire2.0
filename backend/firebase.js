@@ -3,7 +3,7 @@ const admin = require('firebase-admin');
 
 // Procesar el salto de línea en la clave privada
 const privateKey = process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n');
-
+//monda
 admin.initializeApp({
   credential: admin.credential.cert({
     projectId: process.env.FIREBASE_PROJECT_ID,
