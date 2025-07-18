@@ -2,6 +2,8 @@ const express = require('express');
 const cors = require('cors');
 const session = require('express-session');
 const userRoutes = require('./src/routes/userRoutes');
+const sensorRoutes = require('./src/routes/sensorRoutes'); 
+
 
 const app = express();
 const PORT = 3000;
@@ -14,8 +16,10 @@ app.use(session({
     saveUninitialized:true,
     cookie: { secure: false, maxAge: 600000}
 }));
+
 //ruta
 app.use("/api", userRoutes);
+app.use("/api", sensorRoutes);
 
 //iniciar servidor
 app.listen(PORT, () => {

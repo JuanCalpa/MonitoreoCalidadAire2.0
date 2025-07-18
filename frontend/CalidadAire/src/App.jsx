@@ -39,8 +39,8 @@ function App() {
           { name: 'PM2.5', valor: dato.pm2_5 },
           { name: 'PM10', valor: dato.pm10 },
           { name: 'Temperatura', valor: dato.temperatura }
-        ]
-        setDatosCalidadAire(datosAdaptados.map(d => d.valor))
+        ];
+        setDatosCalidadAire(datosAdaptados);
       })
       .catch(error => console.error('Error al obtener el último dato:', error))
   }

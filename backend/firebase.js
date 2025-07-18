@@ -1,9 +1,8 @@
-require('dotenv').config(); // Cargar las variables del archivo .env
+require('dotenv').config();
 const admin = require('firebase-admin');
 
-// Procesar el salto de línea en la clave privada
 const privateKey = process.env.FIREBASE_PRIVATE_KEY.replace(/\\n/g, '\n');
-//monda
+
 admin.initializeApp({
   credential: admin.credential.cert({
     projectId: process.env.FIREBASE_PROJECT_ID,
@@ -12,3 +11,7 @@ admin.initializeApp({
   }),
   databaseURL: process.env.FIREBASE_DATABASE_URL,
 });
+
+// exportar la instancia de la base de datos
+const db = admin.database();
+module.exports = db;

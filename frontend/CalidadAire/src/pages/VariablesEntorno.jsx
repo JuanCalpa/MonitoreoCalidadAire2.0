@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import GraficoBarras from "../components/GraficoBarras";
+import GraficoDispersion from "../components/graficoDispersion";
 import Navbar from "../components/navBar";
 
 const variables = [
@@ -11,13 +11,26 @@ const variables = [
   { nombre: "PRESIÓN", datos: [1012, 1013, 1011, 1014] },
 ];
 
+
 function VariablesEntorno() {
   const [showModal, setShowModal] = useState(false);
   const [variableSeleccionada, setVariableSeleccionada] = useState(null);
+  const [datosPM1, setDatosPM1] = useState([]);
+  const [datosTemperatura, setDatosTemperatura] = useState([]);
 
-  const handleOpenModal = (variable) => {
+  const handleOpenModal = async (variable) => {
     setVariableSeleccionada(variable);
     setShowModal(true);
+
+    if (variable.nombre === "TEMPERATURA") {
+      const res = await fetch("http://localhost:3000/api/ultimasTemperaturas");
+      const data = await res.json();
+      setDatosTemperatura(data.temperaturas || []);
+    } else if (variable.nombre === "PM1") {
+      const res = await fetch("http://localhost:3000/api/ultimos-pm1");
+      const data = await res.json();
+      setDatosPM1(data.pm1 || []);
+    }
   };
 
   const handleCloseModal = () => {
@@ -55,9 +68,35 @@ function VariablesEntorno() {
                 <button type="button" className="btn-close" onClick={handleCloseModal}></button>
               </div>
               <div className="modal-body">
-                {/* Aquí puedes mostrar la gráfica o los datos */}
-                <p>Datos: {variableSeleccionada.datos.join(", ")}</p>
-                {/* <GraficoBarras datos={variableSeleccionada.datos} /> */}
+                {variableSeleccionada.nombre === "TEMPERATURA" ? (
+                  datosTemperatura.length > 0 ? (
+                    <GraficoDispersion
+                      datos={datosTemperatura.map((valor, idx) => ({
+                        name: `#${idx + 1}`,
+                        valor
+                      }))}
+                      limite={25} 
+                    />
+                  ) : (
+                    <p>Cargando datos de temperatura...</p>
+                  )
+                ) : variableSeleccionada.nombre === "PM1" ? (
+                  datosPM1.length > 0 ? (
+                    <GraficoDispersion
+                      datos={datosPM1.map((valor, idx) => ({
+                        name: `#${idx + 1}`,
+                        valor
+                      }))}
+                      limite={2}
+                    />
+                  ) : (
+                    <p>Cargando datos de PM1...</p>
+                  )
+                ) : (
+                  <>
+                    <p>Datos: {variableSeleccionada.datos.join(", ")}</p>
+                  </>
+                )}
               </div>
               <div className="modal-footer">
                 <button className="btn btn-secondary" onClick={handleCloseModal}>
