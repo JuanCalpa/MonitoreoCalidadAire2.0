@@ -25,9 +25,17 @@ function Navbar() {
             <li className="nav-item">
               <a className="nav-link" href="#">Filtrar por fechas</a>
             </li>
-            <li className="nav-item">
-              <a className="nav-link" href="#">Generar reporte</a>
-            </li>
+           <li className="nav-item">
+          <a
+            className="nav-link"
+            href="http://localhost:3000/api/pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            download
+          >
+            Generar reporte
+          </a>
+          </li>
           </ul>
         </div>
       </div>
