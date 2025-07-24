@@ -1,6 +1,6 @@
 body {
   margin: 0;
-  padding: 0;;
+  padding: 0;
   background: #000118;
   height: 100%;
   /*overflow: hidden;*/
@@ -129,48 +129,43 @@ body {
 }
 
 
+body > .navbar,
+body > .custom-navbar {
+  margin-top: 0 !important;
+}
 
 
-
-/* Estilos personalizados para el Navbar */
+/* ...existing code... */
 .custom-navbar {
-  background-color: #031d2c; 
-  color: aliceblue; 
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
-  padding-left: 40px;
+  background-color: #031d2c;
+  color: aliceblue;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding-left: 0;         /* Quita el padding izquierdo extra */
+  padding-right: 0;        /* Asegura que no haya padding derecho */
+  margin: 0;               /* Quita cualquier margen */
+  width: 100vw;            /* Ocupa todo el ancho de la ventana */
+  border-radius: 0;        /* Sin bordes redondeados */
 }
 
 .custom-navbar .navbar-brand {
   font-size: 1.5rem;
   font-weight: bold;
-  color: #ffffff; /* Color del texto de la marca */
+  color: #ffffff;
+  margin-left: 20px;       /* Espacio solo para la marca */
 }
 
-.custom-navbar .navbar-brand:hover {
-  color:  #99daee; 
-  font-weight: bold;
+.custom-navbar .navbar-nav {
+  width: 100%;
+  justify-content: flex-end; /* Alinea los enlaces a la derecha */
 }
 
 .custom-navbar .nav-link {
-  color: #ffffff; /* Color de los enlaces */
+  color: #ffffff;
   margin: 0 10px;
-  padding-right: 40px;
+  padding: 8px 20px;       /* Padding uniforme */
 }
 
-.custom-navbar .nav-link:hover {
-  color: #99daee; 
-  background: #003556;
-  border-radius: 10px;
-}
-
-.custom-navbar .nav-link.active {
-  color: #ffffff; 
-  
-}
-
-/* Agregar padding a los enlaces del navbar */
 .collapse.navbar-collapse .nav-item {
-  padding-right: 40px; 
+  padding-right: 0;        /* Quita el padding extra de los items */
 }
-
 

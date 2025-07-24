@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react'
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Perfil from './components/Perfil';
 import LoginForm from './components/LoginForm';
 import RegisterForm from './components/RegisterForm';
-import Navbar from './components/navBar'
+import Navbar from './components/NavBar'
 import GraficoSeccion from './components/GraficoSeccion'
 import NivelCalidad from './components/NivelCalidad'
 import Descripcion from './components/Descripcion'
 import VariablesEntorno from './pages/VariablesEntorno';
+import CompararDatos from './pages/CompararDatos';
 import './App.css'
 
 function MainContent({ datosCalidadAire, veredicto }) {
@@ -63,15 +64,18 @@ function App() {
   }, [datosCalidadAire])
 
   return (
-    <Routes>
-      <Route path="/" element={<Perfil />} />
-      <Route path="/login" element={<LoginForm />} />
-      <Route path="/register" element={<RegisterForm />} />
-      <Route path="/invitado" element={
-        <MainContent datosCalidadAire={datosCalidadAire} veredicto={veredicto} />
-      } />
-      <Route path="/variables-entorno" element={<VariablesEntorno />} />
-    </Routes>
+    
+      <Routes>
+        <Route path="/" element={<Perfil />} />
+        <Route path="/login" element={<LoginForm />} />
+        <Route path="/register" element={<RegisterForm />} />
+        <Route path="/invitado" element={
+          <MainContent datosCalidadAire={datosCalidadAire} veredicto={veredicto} />
+        } />
+        <Route path="/variables-entorno" element={<VariablesEntorno />} />
+        <Route path="/comparar-datos" element={<CompararDatos />} />
+      </Routes> 
+
   )
 }
 

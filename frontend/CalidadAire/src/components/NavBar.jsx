@@ -1,8 +1,10 @@
+import { Link } from "react-router-dom";
+
 function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg custom-navbar">
       <div className="container-fluid">
-        <a className="navbar-brand" href="/invitado">Calidad del Aire</a>
+        <Link className="navbar-brand" to="/invitado">Calidad del Aire</Link>
         <button
           className="navbar-toggler"
           type="button"
@@ -17,25 +19,28 @@ function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <a className="nav-link" href="/variables-entorno">Variables de entorno</a>
+              <Link className="nav-link" to="/variables-entorno">Variables de entorno</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Descargar datos</a>
+              <Link className="nav-link" to="/comparar-datos">Comparar datos</Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#">Filtrar por fechas</a>
+              <span className="nav-link disabled" style={{ cursor: "not-allowed", opacity: 0.6 }}>Descargar datos</span>
             </li>
-           <li className="nav-item">
-          <a
-            className="nav-link"
-            href="http://localhost:3000/api/pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            download
-          >
-            Generar reporte
-          </a>
-          </li>
+            <li className="nav-item">
+              <span className="nav-link disabled" style={{ cursor: "not-allowed", opacity: 0.6 }}>Filtrar por fechas</span>
+            </li>
+            <li className="nav-item">
+              <a
+                className="nav-link"
+                href="http://localhost:3000/api/pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                download
+              >
+                Generar reporte
+              </a>
+            </li>
           </ul>
         </div>
       </div>

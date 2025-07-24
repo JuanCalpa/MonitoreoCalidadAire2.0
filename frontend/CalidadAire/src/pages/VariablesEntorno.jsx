@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import GraficoDispersion from "../components/graficoDispersion";
-import Navbar from "../components/navBar";
+import Navbar from "../components/NavBar";
 
 const variables = [
   { nombre: "PM1", datos: [10, 20, 15, 30] },
