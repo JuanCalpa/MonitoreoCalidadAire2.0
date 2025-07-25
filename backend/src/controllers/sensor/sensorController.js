@@ -228,6 +228,86 @@ const getUltimasPresiones = async (req, res) => {
   }
 };
 
+const getPromediosPorDia = async (req, res) => {
+  try {
+    const { variable, dias } = req.query;
+    if (!variable || !dias) {
+      return res.status(400).json({ error: "Variable o días no proporcionados" });
+    }
+
+    const diasArray = dias.split(","); // puede venir como: "2025-07-23,2025-07-24"
+    const refHistorial = db.ref("/historial");
+
+    refHistorial.once("value", (snapshot) => {
+      const historial = snapshot.val();
+      if (!historial) return res.status(404).json({ error: "No hay historial" });
+
+      const promedios = diasArray.map((dia) => {
+        const horas = historial[dia];
+        if (!horas) return { dia, promedio: 0 };
+
+        let suma = 0;
+        let cantidad = 0;
+
+        Object.values(horas).forEach((registros) => {
+          Object.values(registros).forEach((registro) => {
+            const valor = registro[variable];
+            if (typeof valor === "number") {
+              suma += valor;
+              cantidad++;
+            }
+          });
+        });
+
+        const promedio = cantidad > 0 ? suma / cantidad : 0;
+        return { dia, promedio: parseFloat(promedio.toFixed(2)) };
+      });
+
+      res.json(promedios);
+    });
+  } catch (error) {
+    console.error("Error en promedio por día:", error);
+    res.status(500).json({ error: "Error al calcular promedio" });
+  }
+};
+
+const obtenerDiasPorVariable = async (req, res) => {
+  try {
+    const { variable } = req.query;
+    if (!variable) {
+      return res.status(400).json({ error: "Falta el parámetro 'variable'" });
+    }
+
+    const refHistorial = db.ref("/historial");
+    refHistorial.once("value", (snapshot) => {
+      const historial = snapshot.val();
+      if (!historial) return res.status(404).json({ error: "No hay historial" });
+
+      const diasConVariable = Object.entries(historial).reduce((acc, [dia, horas]) => {
+        let encontrado = false;
+
+        for (const hora of Object.values(horas)) {
+          for (const objeto of Object.values(hora)) {
+            if (variable in objeto) {
+              encontrado = true;
+              break;
+            }
+          }
+          if (encontrado) break;
+        }
+
+        if (encontrado) acc.push(dia);
+        return acc;
+      }, []);
+
+      res.json(diasConVariable);
+    });
+  } catch (error) {
+    console.error("Error al obtener días por variable:", error);
+    res.status(500).json({ error: "Error interno del servidor" });
+  }
+};
+
 module.exports = {
     getDatos,
     getUltimoDato,
@@ -236,5 +316,7 @@ module.exports = {
     getUltimosPM10,
     getUltimosCO,
     getUltimasTemperaturas,
-    getUltimasPresiones
+    getUltimasPresiones,
+    getPromediosPorDia,
+    obtenerDiasPorVariable
 }
