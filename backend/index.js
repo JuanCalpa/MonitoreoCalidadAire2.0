@@ -21,6 +21,7 @@ app.use("/api", userRoutes);
 app.use("/api", sensorRoutes);
 app.use("/api", pdfRoutes); 
 
+
 //iniciar servidor
 app.listen(PORT, () => {
     console.log(`Servidor corriendo en http://localhost:${PORT}`);

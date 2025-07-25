@@ -15,5 +15,8 @@ router.get("/ultimasPresiones", sensorController.getUltimasPresiones);
 router.get("/promedios", sensorController.getPromediosPorDia);
 router.get("/diasVariable", sensorController.obtenerDiasPorVariable);
 
+router.get("/datosDia", sensorController.getDatosPorDia);
+
+
 
 module.exports = router;
