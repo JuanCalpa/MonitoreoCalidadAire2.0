@@ -11,10 +11,10 @@ import VariablesEntorno from './pages/VariablesEntorno';
 import CompararDatos from './pages/CompararDatos';
 import './App.css'
 
-function MainContent({ datosCalidadAire, veredicto }) {
+function MainContent({ datosCalidadAire, veredicto, isInvitado }) {
   return (
     <div>
-      <Navbar />
+      <Navbar isInvitado={isInvitado}/>
       <main className="main-container">
         <section className="left-section">
           <GraficoSeccion datosCalidadAire={datosCalidadAire} />
@@ -70,7 +70,7 @@ function App() {
         <Route path="/login" element={<LoginForm />} />
         <Route path="/register" element={<RegisterForm />} />
         <Route path="/invitado" element={
-          <MainContent datosCalidadAire={datosCalidadAire} veredicto={veredicto} />
+          <MainContent datosCalidadAire={datosCalidadAire} veredicto={veredicto} isInvitado={true}/>
         } />
         <Route path="/variables-entorno" element={<VariablesEntorno />} />
         <Route path="/comparar-datos" element={<CompararDatos />} />
