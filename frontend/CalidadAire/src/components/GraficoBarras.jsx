@@ -10,11 +10,11 @@ function GraficoBarras({ datos }) {
       margin={{ top: 20, right: 30, left: 20, bottom: 5 }}
     >
       <CartesianGrid strokeDasharray="3 3" />
-      <XAxis dataKey="name" />
-      <YAxis />
+      <XAxis dataKey="name" tick={{ fill: "#E5E5E5"}} />
+      <YAxis tick={{ fill: "#E5E5E5" }}  />
       <Tooltip />
-      <Legend />
-      <Bar dataKey="valor" fill="#8884d8" />
+      <Legend wrapperStyle={{ color: "#188181ff", fontWeight: "bold" }} />
+      <Bar dataKey="valor" fill="#59cb9fff" />
     </BarChart>
   );
 }

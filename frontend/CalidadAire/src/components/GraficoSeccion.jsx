@@ -6,7 +6,7 @@ const GraficoSeccion = ({ datosCalidadAire }) => {
   return (
     <div className="grafico">
       <h1 className="titulo">Calidad de Aire Universidad Mariana</h1>
-      <div className='grafico'>
+      <div className="grafico-barras-fondo">
         {datosCalidadAire.length > 0 ? (
           <GraficoBarras datos={datosCalidadAire} />
         ) : (

@@ -1,18 +1,30 @@
 body {
-  margin: 0;
-  padding: 0;
-  background: #000118;
+  margin: 0 !important;
+  padding: 0 !important;
+  background: #1E2A38;
   height: 100%;
-  /*overflow: hidden;*/
+}
+
+p {
+  line-height: 1.6;
+  font-size: 1.2rem;
+  color: #E0E0E0;
 }
 
 .grafico {
   display: flex;
   flex-direction: column;
-  align-items: center; /* centra horizontalmente */
-  justify-content: center; /* centra verticalmente */
+  align-items: center; 
+  justify-content: center; 
   text-align: center;
-  gap: 20px; /* espacio entre el titulo y el gráfico */
+  gap: 20px; 
+  
+}
+.grafico-barras-fondo {
+  background: #273442; 
+  padding: 40px;
+  border-radius: 16px;
+  
   
 }
 
@@ -25,8 +37,8 @@ body {
 
 .main-container {
   display: grid;
-  grid-template-columns: 2fr 1fr; /* dos columnas (izquierda más ancha) */
-  grid-template-rows: 1fr; /* Una sola fila */
+  grid-template-columns: 2fr 1fr; 
+  grid-template-rows: 1fr; 
   height: 100vh;
   gap: 20px;
   padding: 20px;
@@ -36,8 +48,6 @@ body {
 .left-section {
   display: flex;
   flex-direction: column;
-  /*gap: 20px;*/
-  
 }
 
 .grafico {
@@ -49,10 +59,10 @@ body {
   
   color: aliceblue;
   margin: 30px;
-  background-color: #003556;
+  background-color: #2F3E4E;
   border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  text-align: left;
+  text-align: center;
   padding-left: 100px;
   padding-right: 100px;
   padding-top: 30px;
@@ -67,42 +77,48 @@ body {
   margin-bottom: 10px;
 }
 
-/* Estilo base para el veredicto */
+
 .veredicto {
-  font-size: 2.5rem; /* Tamaño grande */
+  font-size: 2.5rem; 
   font-weight: bold;
   text-align: center;
   margin: 10px 0;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Sombra del texto */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); 
   padding: 10px;
   border-radius: 10px;
 }
 
-/* Estilo para el veredicto "Buena" */
 .veredicto.buena {
-  color: #4caf50; /* Verde */
-  background-color: rgba(76, 175, 80, 0.2); /* Fondo verde claro */
-  border: 2px solid #4caf50; /* Borde verde */
+  color: #4caf50; 
+  background-color: rgba(76, 175, 80, 0.2); 
+  border: 2px solid #4caf50; 
 }
 
-/* Estilo para el veredicto "Moderada" */
 .veredicto.moderada {
-  color: #ff9800; /* Naranja */
-  background-color: rgba(255, 152, 0, 0.2); /* Fondo naranja claro */
-  border: 2px solid #ff9800; /* Borde naranja */
+  color: #ff9800; 
+  background-color: rgba(255, 152, 0, 0.2); 
+  border: 2px solid #ff9800; 
 }
 
-/* Estilo para el veredicto "Mala" */
 .veredicto.mala {
-  color: #f44336; /* Rojo */
-  background-color: rgba(244, 67, 54, 0.2); /* Fondo rojo claro */
-  border: 2px solid #f44336; /* Borde rojo */
+  background-color: #852828c5;
+  border: 1px solid #ff0000;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #f3dfdf;
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+  border-radius: 10px;
+  
 }
 
 .descripcion {
   color: aliceblue;
   margin: 40px;
-  background-color: #003556;
+  background-color: #2F3E4E;
   padding: 40px;
   border-radius: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -117,55 +133,55 @@ body {
   margin-bottom: 10px;
 }
 
-/* para dispositivos mOviles */
 @media (max-width: 768px) {
   .main-container {
-    grid-template-columns: 1fr; /* CambiaR a una sola columna */
+    grid-template-columns: 1fr; 
   }
 
   .descripcion {
-    text-align: left; /* AlineaR el texto a la izquierda en móviles */
+    text-align: left; 
   }
 }
 
 
-body > .navbar,
-body > .custom-navbar {
-  margin-top: 0 !important;
-}
-
-
-/* ...existing code... */
 .custom-navbar {
-  background-color: #031d2c;
-  color: aliceblue;
+  background-color: #11171f;
+  color: #E5E5E5;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding-left: 0;         /* Quita el padding izquierdo extra */
-  padding-right: 0;        /* Asegura que no haya padding derecho */
-  margin: 0;               /* Quita cualquier margen */
-  width: 100vw;            /* Ocupa todo el ancho de la ventana */
-  border-radius: 0;        /* Sin bordes redondeados */
+  padding-left: 0;         
+  padding-right: 0;        
+  margin: 0;               
+  width: 100vw;            
+  border-radius: 0;        
 }
 
 .custom-navbar .navbar-brand {
   font-size: 1.5rem;
   font-weight: bold;
   color: #ffffff;
-  margin-left: 20px;       /* Espacio solo para la marca */
+  margin-left: 20px;       
 }
 
 .custom-navbar .navbar-nav {
   width: 100%;
-  justify-content: flex-end; /* Alinea los enlaces a la derecha */
+  justify-content: flex-end; 
 }
 
 .custom-navbar .nav-link {
   color: #ffffff;
   margin: 0 10px;
-  padding: 8px 20px;       /* Padding uniforme */
+  padding: 8px 20px;       
 }
 
 .collapse.navbar-collapse .nav-item {
-  padding-right: 0;        /* Quita el padding extra de los items */
+  padding-right: 0;        
 }
 
+.custom-navbar .nav-link:hover {
+  border-radius: 4%;
+  background-color: #1E2A38;
+  color: #daecee; 
+  border-bottom: 2px solid #80CED7;
+  
+
+}

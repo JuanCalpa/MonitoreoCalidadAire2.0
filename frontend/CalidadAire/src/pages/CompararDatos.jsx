@@ -73,8 +73,8 @@ function CompararDatos() {
   return (
     <>
       <Navbar />
-      <div className="container mt-4">
-        <h1 className="mb-4 text-center">Comparar Promedios por Día</h1>
+      <div className="comparar-datos">
+        <h1 className="comparar-datos-titulo">Comparar Promedios por Día</h1>
 
         <VariableSelector value={variable} onChange={(e) => setVariable(e.target.value)} />
 
