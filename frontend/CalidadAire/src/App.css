@@ -3,6 +3,7 @@ body {
   padding: 0 !important;
   background: #1E2A38;
   height: 100%;
+  
 }
 
 p {
@@ -18,13 +19,16 @@ p {
   justify-content: center; 
   text-align: center;
   gap: 20px; 
+  padding: 40px;;
+  background: linear-gradient(135deg, #11161a 0%, #253269 50%, #1b8c8c 100%);
+  border-radius: 10px;
+  border: 2px solid #2F3E4E; 
   
 }
 .grafico-barras-fondo {
-  background: #273442; 
+  background-color: #181e25;
   padding: 40px;
   border-radius: 16px;
-  
   
 }
 
@@ -59,8 +63,9 @@ p {
   
   color: aliceblue;
   margin: 30px;
-  background-color: #2F3E4E;
+  background: linear-gradient(135deg, #11161a 0%, #253269 50%, #1b8c8c 100%);
   border-radius: 20px;
+   border: 2px solid #2F3E4E; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   text-align: center;
   padding-left: 100px;
@@ -89,15 +94,31 @@ p {
 }
 
 .veredicto.buena {
-  color: #4caf50; 
-  background-color: rgba(76, 175, 80, 0.2); 
-  border: 2px solid #4caf50; 
+  background-color: #4b8f57c5;
+  border: 1px solid #52B788;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #f3dfdf;
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+  border-radius: 10px;
 }
 
 .veredicto.moderada {
-  color: #ff9800; 
-  background-color: rgba(255, 152, 0, 0.2); 
-  border: 2px solid #ff9800; 
+  background-color: #ccb366;
+  border: 1px solid #ff9900;
+  margin-left: 50px;
+  margin-right: 50px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  color: #f3dfdf;
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+  border-radius: 10px;
 }
 
 .veredicto.mala {
@@ -118,9 +139,11 @@ p {
 .descripcion {
   color: aliceblue;
   margin: 40px;
-  background-color: #2F3E4E;
+  background: linear-gradient(135deg, #11161a 0%, #253269 50%, #1b8c8c 100%);
+  padding: 30px;
   padding: 40px;
   border-radius: 20px;
+  border: 2px solid #2F3E4E; 
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-size: 20px;
   
@@ -142,7 +165,6 @@ p {
     text-align: left; 
   }
 }
-
 
 .custom-navbar {
   background-color: #11171f;

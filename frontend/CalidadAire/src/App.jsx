@@ -58,7 +58,7 @@ function App() {
       } else if (promedio <= 100) {
         setVeredicto('Moderada')
       } else {
-        setVeredicto('Mala')
+        setVeredicto('Moderada')
       }
     }
   }, [datosCalidadAire])
