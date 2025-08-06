@@ -47,9 +47,9 @@ function DiaSelector({ dias, value, onChange, variable }) {
   };
 
   return (
-    <div className="mb-4">
-      <label className="form-label">Selecciona los días a comparar:</label>
-      <div className="d-flex flex-column gap-2">
+    <div className="dia-selector-container">
+      <div className="dia-selector-titulo"><label >Selecciona los días a comparar:</label></div>
+      <div className="dia-selector-dias">
         {dias.map((dia) => (
           <div key={dia} className="d-flex align-items-center gap-3">
             <div className="form-check">
@@ -67,7 +67,7 @@ function DiaSelector({ dias, value, onChange, variable }) {
             </div>
             <button
               onClick={() => descargarDatos(dia)}
-              className="btn btn-sm btn-outline-primary"
+              className="boton-descarga"
             >
               Descargar CSV
             </button>

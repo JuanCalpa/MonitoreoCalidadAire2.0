@@ -1,17 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import GraficoDispersion from "../components/graficoDispersion";
 import Navbar from "../components/NavBar";
 import '../StyleComponents/VariablesEntorno.css';
-
-const variables = [
-  { nombre: "PM1", datos: [10, 20, 15, 30] },
-  { nombre: "PM2.5", datos: [12, 18, 22, 28] },
-  { nombre: "PM10", datos: [8, 14, 19, 25] },
-  { nombre: "CO", datos: [5, 7, 6, 8] },
-  { nombre: "TEMPERATURA", datos: [22, 23, 21, 24] },
-  { nombre: "PRESIÓN", datos: [1012, 1013, 1011, 1014] },
-];
-
 
 function VariablesEntorno() {
   const [showModal, setShowModal] = useState(false);
@@ -23,10 +13,47 @@ function VariablesEntorno() {
   const [datosTemperatura, setDatosTemperatura] = useState([]);
   const [datosPresion, setDatosPresion] = useState([]);
 
-  const handleOpenModal = async (variable) => {
-    setVariableSeleccionada(variable);
-    setShowModal(true);
+  // Fetch para todas las gráficas pequeñas (y grandes) cada 5 segundos
+  useEffect(() => {
+    const fetchAll = async () => {
+      try {
+        let res, data;
+        res = await fetch("http://localhost:3000/api/ultimosPM1");
+        data = await res.json();
+        setDatosPM1(data.pm1 || []);
 
+        res = await fetch("http://localhost:3000/api/ultimosPM25");
+        data = await res.json();
+        setDatosPM25(data.pm25 || []);
+
+        res = await fetch("http://localhost:3000/api/ultimosPM10");
+        data = await res.json();
+        setDatosPM10(data.pm10 || []);
+
+        res = await fetch("http://localhost:3000/api/ultimosCO");
+        data = await res.json();
+        setDatosCO(data.co || []);
+
+        res = await fetch("http://localhost:3000/api/ultimasTemperaturas");
+        data = await res.json();
+        setDatosTemperatura(data.temperaturas || []);
+
+        res = await fetch("http://localhost:3000/api/ultimasPresiones");
+        data = await res.json();
+        setDatosPresion(data.presiones || []);
+      } catch (e) {
+        console.error("Error al obtener datos:", e);
+      }
+    };
+
+    fetchAll();
+    const interval = setInterval(fetchAll, 5000);
+    return () => clearInterval(interval);
+  }, []);
+
+  // Fetch para el modal (solo la variable seleccionada)
+  const fetchDatosVariable = async (variable) => {
+    if (!variable) return;
     if (variable.nombre === "TEMPERATURA") {
       const res = await fetch("http://localhost:3000/api/ultimasTemperaturas");
       const data = await res.json();
@@ -54,6 +81,23 @@ function VariablesEntorno() {
     }
   };
 
+  // Actualiza la variable seleccionada en el modal cada 5 segundos
+  useEffect(() => {
+    if (showModal && variableSeleccionada) {
+      fetchDatosVariable(variableSeleccionada); // Llama al abrir
+
+      const interval = setInterval(() => {
+        fetchDatosVariable(variableSeleccionada);
+      }, 5000);
+
+      return () => clearInterval(interval);
+    }
+  }, [showModal, variableSeleccionada]);
+
+  const handleOpenModal = (variable) => {
+    setVariableSeleccionada(variable);
+    setShowModal(true);
+  };
   const handleCloseModal = () => {
     setShowModal(false);
     setVariableSeleccionada(null);
@@ -66,65 +110,96 @@ function VariablesEntorno() {
         <div className="variable-entorno">
           <h1 className="variable-entorno-titulo">Variables de Entorno</h1>
           <div className="variable-entorno-graficas">
-            {variables.map((variable) => (
-              <div className="variable-entorno-nombreVariable" key={variable.nombre}>
-                <h5 className="text-center">{variable.nombre}</h5>
-                <div className="variable-entorno-graficaIndividual">
-                  {variable.nombre === "TEMPERATURA" ? (
-                    <GraficoDispersion
-                      datos={variable.datos.map((valor, idx) => ({
-                        name: `#${idx + 1}`,
-                        valor
-                      }))}
-                      limite={25}
-                    />
-                  ) : variable.nombre === "PM1" ? (
-                    <GraficoDispersion
-                      datos={variable.datos.map((valor, idx) => ({
-                        name: `#${idx + 1}`,
-                        valor
-                      }))}
-                      limite={2}
-                    />
-                  ) : variable.nombre === "PM2.5" ? (
-                    <GraficoDispersion
-                      datos={variable.datos.map((valor, idx) => ({
-                        name: `#${idx + 1}`,
-                        valor
-                      }))}
-                      limite={25}
-                    />
-                  ) : variable.nombre === "PM10" ? (
-                    <GraficoDispersion
-                      datos={variable.datos.map((valor, idx) => ({
-                        name: `#${idx + 1}`,
-                        valor
-                      }))}
-                      limite={50}
-                    />
-                  ) : variable.nombre === "CO" ? (
-                    <GraficoDispersion
-                      datos={variable.datos.map((valor, idx) => ({
-                        name: `#${idx + 1}`,
-                        valor
-                      }))}
-                      limite={10}
-                    />
-                  ) : variable.nombre === "PRESIÓN" ? (
-                    <GraficoDispersion
-                      datos={variable.datos.map((valor, idx) => ({
-                        name: `#${idx + 1}`,
-                        valor
-                      }))}
-                      limite={1020}
-                    />
-                  ) : null}
-                </div>
-                <button className="variable-entorno-botonVer" onClick={() => handleOpenModal(variable)}>
-                  Ver Información
-                </button>
+            <div className="variable-entorno-nombreVariable">
+              <h5 className="text-center">PM1</h5>
+              <div className="variable-entorno-graficaIndividual">
+                <GraficoDispersion
+                  datos={datosPM1.map((valor, idx) => ({
+                    name: `#${idx + 1}`,
+                    valor
+                  }))}
+                  limite={2}
+                />
               </div>
-            ))}
+              <button className="variable-entorno-botonVer" onClick={() => handleOpenModal({ nombre: "PM1" })}>
+                Ver Información
+              </button>
+            </div>
+            <div className="variable-entorno-nombreVariable">
+              <h5 className="text-center">PM2.5</h5>
+              <div className="variable-entorno-graficaIndividual">
+                <GraficoDispersion
+                  datos={datosPM25.map((valor, idx) => ({
+                    name: `#${idx + 1}`,
+                    valor
+                  }))}
+                  limite={25}
+                />
+              </div>
+              <button className="variable-entorno-botonVer" onClick={() => handleOpenModal({ nombre: "PM2.5" })}>
+                Ver Información
+              </button>
+            </div>
+            <div className="variable-entorno-nombreVariable">
+              <h5 className="text-center">PM10</h5>
+              <div className="variable-entorno-graficaIndividual">
+                <GraficoDispersion
+                  datos={datosPM10.map((valor, idx) => ({
+                    name: `#${idx + 1}`,
+                    valor
+                  }))}
+                  limite={50}
+                />
+              </div>
+              <button className="variable-entorno-botonVer" onClick={() => handleOpenModal({ nombre: "PM10" })}>
+                Ver Información
+              </button>
+            </div>
+            <div className="variable-entorno-nombreVariable">
+              <h5 className="text-center">CO</h5>
+              <div className="variable-entorno-graficaIndividual">
+                <GraficoDispersion
+                  datos={datosCO.map((valor, idx) => ({
+                    name: `#${idx + 1}`,
+                    valor
+                  }))}
+                  limite={10}
+                />
+              </div>
+              <button className="variable-entorno-botonVer" onClick={() => handleOpenModal({ nombre: "CO" })}>
+                Ver Información
+              </button>
+            </div>
+            <div className="variable-entorno-nombreVariable">
+              <h5 className="text-center">TEMPERATURA</h5>
+              <div className="variable-entorno-graficaIndividual">
+                <GraficoDispersion
+                  datos={datosTemperatura.map((valor, idx) => ({
+                    name: `#${idx + 1}`,
+                    valor
+                  }))}
+                  limite={25}
+                />
+              </div>
+              <button className="variable-entorno-botonVer" onClick={() => handleOpenModal({ nombre: "TEMPERATURA" })}>
+                Ver Información
+              </button>
+            </div>
+            <div className="variable-entorno-nombreVariable">
+              <h5 className="text-center">PRESIÓN</h5>
+              <div className="variable-entorno-graficaIndividual">
+                <GraficoDispersion
+                  datos={datosPresion.map((valor, idx) => ({
+                    name: `#${idx + 1}`,
+                    valor
+                  }))}
+                  limite={1020}
+                />
+              </div>
+              <button className="variable-entorno-botonVer" onClick={() => handleOpenModal({ nombre: "PRESIÓN" })}>
+                Ver Información
+              </button>
+            </div>
           </div>
         </div>
 
@@ -181,12 +256,11 @@ function VariablesEntorno() {
                           name: `#${idx + 1}`,
                           valor
                         }))}
-                        limite={50} // Cambia el límite si lo deseas
+                        limite={50}
                       />
                     ) : (
                       <p>Cargando datos de PM10...</p>
                     )
-
                   ) : variableSeleccionada.nombre === "CO" ? (
                     datosCO.length > 0 ? (
                       <GraficoDispersion
@@ -194,7 +268,7 @@ function VariablesEntorno() {
                           name: `#${idx + 1}`,
                           valor
                         }))}
-                        limite={10} // Cambia el límite si lo deseas
+                        limite={10}
                       />
                     ) : (
                       <p>Cargando datos de CO...</p>
@@ -206,17 +280,14 @@ function VariablesEntorno() {
                           name: `#${idx + 1}`,
                           valor
                         }))}
-                        limite={1020} // Cambia el límite si lo deseas
+                        limite={1020}
                       />
                     ) : (
                       <p>Cargando datos de presión...</p>
                     )
                   ) : (
-                    <>
-                      <p>Datos: {variableSeleccionada.datos.join(", ")}</p>
-                    </>
-                  )
-                  }
+                    <p>Datos no disponibles.</p>
+                  )}
                 </div>
                 <div className="modal-footer">
                   <button className="btn btn-secondary" onClick={handleCloseModal}>

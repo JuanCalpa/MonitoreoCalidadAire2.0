@@ -3,6 +3,7 @@ import Navbar from "../components/NavBar";
 import VariableSelector from "../components/VariableSelector";
 import DiaSelector from "../components/DiaSelector";
 import GraficoBarrasPromedio from "../components/GraficoComparacion";
+import '../StyleComponents/CompararDatos.css';
 
 function CompararDatos() {
   const [variable, setVariable] = useState("");
@@ -89,8 +90,7 @@ function CompararDatos() {
 
         {datosPromedio.length > 0 && (
           <>
-            <GraficoBarrasPromedio datos={datosPromedio} variable={variable} />
-            
+          <GraficoBarrasPromedio datos={datosPromedio} variable={variable} />            
           </>
         )}
       </div>

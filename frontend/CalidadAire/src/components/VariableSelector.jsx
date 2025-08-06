@@ -1,9 +1,10 @@
 import React from "react";
+import '../StyleComponents/CompararDatos.css';
 
 function VariableSelector({ value, onChange }) {
   return (
-    <div className="mb-3">
-      <label>Selecciona una variable:</label>
+    <div className="variable-selector">
+      <div className="variable-selector-titulo"><label>Selecciona una variable:</label></div>
       <select className="form-select" onChange={onChange} value={value}>
         <option value="">-- Selecciona --</option>
         <option value="pm1">PM1</option>

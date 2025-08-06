@@ -204,6 +204,25 @@ p {
   background-color: #1E2A38;
   color: #daecee; 
   border-bottom: 2px solid #80CED7;
-  
+}
 
+.custom-logout-btn {
+  font-weight: bold;       
+  text-decoration: none;  
+  padding: 8px 16px;
+  border-radius: 8px;
+  background-color: #852828c5; 
+  border: 1px solid red;
+  transition: all 0.3s ease;
+}
+
+.custom-logout-btn:hover {
+  background-color: red;
+  color: white;
+}
+
+.cancel-button:hover {
+  background-color: #1b8c8c !important; 
+  color: white !important;
+  border-color: #1b8c8c !important;
 }

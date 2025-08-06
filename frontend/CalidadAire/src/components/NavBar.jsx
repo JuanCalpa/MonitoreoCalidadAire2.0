@@ -72,8 +72,7 @@ function Navbar() {
                   </li>
                   <li className="nav-item">
                     <button
-                      className="nav-link btn btn-link"
-                      style={{ color: "#0d6efd" }}
+                      className="nav-link btn btn-link custom-logout-btn"
                       onClick={() => setShowModal(true)}
                     >
                       Cerrar sesión
@@ -99,7 +98,7 @@ function Navbar() {
             <h5>¿Seguro que deseas cerrar sesión?</h5>
             <div style={{ marginTop: 20 }}>
               <button className="btn btn-danger" onClick={handleLogout}>Sí, cerrar sesión</button>
-              <button className="btn btn-secondary" style={{ marginLeft: 10 }} onClick={() => setShowModal(false)}>Cancelar</button>
+              <button className="btn btn-secondary cancel-button" style={{ marginLeft: 10 }} onClick={() => setShowModal(false)}>Cancelar</button>
             </div>
           </div>
         </div>

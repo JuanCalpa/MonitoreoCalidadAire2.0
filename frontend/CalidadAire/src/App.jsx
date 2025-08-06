@@ -47,9 +47,12 @@ function App() {
   }
 
   useEffect(() => {
-    fetchUltimoDato()
-  }, [])
+  fetchUltimoDato(); // Llama al inicio
 
+  const interval = setInterval(fetchUltimoDato, 1000); // Cada 5 segundos
+
+  return () => clearInterval(interval); // Limpia el intervalo al desmontar
+}, []);
   useEffect(() => {
     if (datosCalidadAire.length > 0) {
       const promedio = datosCalidadAire.reduce((a, b) => a + b, 0) / datosCalidadAire.length
