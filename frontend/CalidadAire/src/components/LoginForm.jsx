@@ -24,12 +24,12 @@ const LoginForm = () => {
       console.log('Respuesta de la API:', data);
 
       if (response.ok && data.success) {
-        alert('Inicio de sesión exitoso');
-        console.log('Usuario:', data.user);
-        navigate('/invitado'); // Redirección aquí
-      } else {
-        alert(`Error: ${data.error || 'Credenciales inválidas'}`);
-      }
+    alert('Inicio de sesión exitoso');
+    localStorage.setItem('isInvitado', 'false'); // Usuario autenticado
+    navigate('/invitado');
+  } else {
+    alert(`Error: ${data.error || 'Credenciales inválidas'}`);
+  }
     } catch (error) {
       console.error('Error al iniciar sesión:', error);
       alert('Error al conectar con el servidor');

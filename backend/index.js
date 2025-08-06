@@ -7,7 +7,10 @@ const pdfRoutes = require('./src/routes/pdfRoutes');
 const app = express();
 const PORT = 3000;
 
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:5173', // URL de tu frontend
+  credentials: true
+}));
 app.use(express.json());
 app.use(session({
     secret:'MonitoreoCalidad',

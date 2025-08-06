@@ -57,14 +57,14 @@ async function login (req, res){
 async function logout(req, res){
   req.session.destroy((err) => {
     if (err) {
-      return res.status(500).json({mensaje: 'Error al cerrar sesión', error: err});
+      console.error('Error al destruir la sesión:', err); // <-- Agrega esto
+      return res.status(500).json({mensaje: 'Error el cerrar sesión', error: err});
     }
     res.clearCookie('connect.sid');
     res.status(200).json({mensaje: 'Sesión cerrada exitosamente'});
     console.log('Sesión cerrada exitosamente');
   });
 };
-
 
 
 module.exports = {
