@@ -89,9 +89,9 @@ function CompararDatos() {
         )}
 
         {datosPromedio.length > 0 && (
-          <>
-          <GraficoBarrasPromedio datos={datosPromedio} variable={variable} />            
-          </>
+          <div className="grafica-container">
+            <GraficoBarrasPromedio datos={datosPromedio} variable={variable} />
+          </div>
         )}
       </div>
     </>

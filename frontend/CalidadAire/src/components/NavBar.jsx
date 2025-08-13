@@ -42,11 +42,17 @@ function Navbar() {
                     <Link className="nav-link" to="/">Iniciar sesión</Link>
                   </li>
                   <li className="nav-item">
+                    <Link className="nav-link" to="/invitado">Inicio</Link>
+                  </li>
+                  <li className="nav-item">
                     <Link className="nav-link" to="/variables-entorno">Variables separadas</Link>
                   </li>
                 </>
               ) : (
                 <>
+                  <li className="nav-item">
+                    <Link className="nav-link" to="/invitado">Inicio</Link>
+                  </li>
                   <li className="nav-item">
                     <Link className="nav-link" to="/variables-entorno">Variables de entorno</Link>
                   </li>

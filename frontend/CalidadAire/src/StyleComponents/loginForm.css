@@ -76,3 +76,7 @@
 .register-link span:hover {
   color: #fff;
 }
+
+.botonVolver {
+  margin-top: 30px
+}
